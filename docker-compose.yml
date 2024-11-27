@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes: # Persistent data storage
+      - sqlite_data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/data/npi_results.db  # Set database path for Docker container (SQLite)
+
+volumes:
+  sqlite_data:
