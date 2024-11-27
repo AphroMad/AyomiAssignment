@@ -20,3 +20,9 @@ Automatic documentation and easy testing :
 
 ### How to understand HTTP error messages 
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+
+# Sqlite 3 
+
+### How to run 
+- Learn how to use Sqlite 3 to create simple DB : https://www.youtube.com/watch?v=girsuXz0yA8
