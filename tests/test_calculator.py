@@ -36,4 +36,3 @@ def test_single_number():
 def test_not_enough_operands():
     with pytest.raises(ValueError, match="Not enough operands"):
         calculate_npi("3 +")
-        

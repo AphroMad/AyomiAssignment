@@ -24,3 +24,4 @@ def test_get_all_calculations(db_manager):
     db_manager.save_calculation("5 2 *", 10.0)
     calculations = db_manager.get_all_calculations()
     assert len(calculations) == 2
+    
