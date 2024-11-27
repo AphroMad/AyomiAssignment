@@ -1,9 +1,11 @@
 import sqlite3
+import os
 from typing import List, Tuple
 
 class DatabaseManager:
-    def __init__(self, db_name: str = 'npi_results.db'):
-        self.db_name = db_name
+    def __init__(self, db_name: str = None):
+        # Use environment variable or default to local path
+        self.db_name = db_name or os.getenv('DB_PATH', 'npi_results.db')
         self.init_db()
 
     def init_db(self) -> None:
