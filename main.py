@@ -1,7 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from src.calculator import calculate_npi
 
 app = FastAPI()
+
+# ====================
+# --- API TEST ---
+# ====================
 
 class Item(BaseModel):
     text: str
@@ -28,3 +33,19 @@ def read_item(item_id: int) -> Item:
         return items[item_id]
     else: 
         raise HTTPException(status_code=404, detail="Item not found")
+    
+
+# ====================
+# --- API NPI ---
+# ====================
+
+class NPIExpression(BaseModel):
+    expression: str
+
+@app.post("/calculate")
+def calculate_expression(expression: NPIExpression):
+    try:
+        result = calculate_npi(expression.expression)
+        return {"result": result}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
