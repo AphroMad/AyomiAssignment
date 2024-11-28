@@ -11,7 +11,7 @@ export default function HistoryList({ history, downloadCSV }) {
                 </button>
             </div>
             <div className={styles.historyList}>
-                {history.map((item, index) => (
+                {[...history].reverse().map((item, index) => (
                     <div key={index} className={styles.historyItem}>
                         <span>{item.expression}</span>
                         <span>{item.result.toLocaleString()} €</span>

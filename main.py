@@ -68,3 +68,12 @@ def export_calculations():
         
     except DatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/calculations")
+def get_calculations():
+    try:
+        calculations = db.get_all_calculations()
+        return [{"expression": calc[1], "result": calc[2]} for calc in calculations]
+    except DatabaseError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
