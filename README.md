@@ -1,79 +1,89 @@
 # AyomiAssignment
-Création d'une calculatrice en notation polonaise inverse (NPI)
+Calculatrice en notation polonaise inverse (NPI) avec interface web
 
-## Setup and Installation
+## Backend Setup
 
-1. Clone the repository
-2. Install dependencies:
+1. Clone repository
+2. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
-## Running the Application
 
 ### Local Development
 ```bash
 uvicorn main:app --reload
 ```
 
-### Using Docker
+### Production (Docker)
 ```bash
-docker-compose up --build  # Build and start
-docker-compose up         # Start
-docker-compose down       # Stop
-docker-compose down --volumes  # Clean start (including database)
+docker compose up --build
 ```
 
-## Testing the Application
+## Frontend Setup
 
+1. Install Node.js and npm
+2. Create React app and install dependencies:
 ```bash
-# Calculate first expression
-curl -X POST -H "Content-Type: application/json" -d '{"expression": "3 4 +"}' 'http://localhost:8000/calculate'
-
-# Calculate second expression
-curl -X POST -H "Content-Type: application/json" -d '{"expression": "5 2 *"}' 'http://localhost:8000/calculate'
-
-# Get all calculations in CSV format
-curl "http://localhost:8000/calculations/csv" --output calculations.csv
+npx create-react-app npi-calculator
+cd npi-calculator
+npm install
 ```
 
-## API Testing
-
-### Console Testing
+3. Copy provided components into `src/components/`
+4. Start development server:
 ```bash
-# GET request
-curl -X GET http://127.0.0.1:8000/endpoint_you_want
-
-# Simple POST request
-curl -X POST -H "Content-Type: application/json" 'http://127.0.0.1:8000/endpoint?value=test'
-
-# POST request with JSON body
-curl -X POST -H "Content-Type: application/json" -d '{"expression": "3 4 +"}' 'http://127.0.0.1:8000/calculate'
+npm start
 ```
 
-### API Documentation
-Automatic documentation and testing interfaces available at:
-- Swagger UI: `http://127.0.0.1:8000/docs#/`
-- ReDoc: `http://127.0.0.1:8000/redoc`
+## Project Structure
+```
+├── backend/
+│   ├── main.py
+│   ├── src/
+│   │   ├── calculator.py
+│   │   └── db/
+│   │       └── operations.py
+│   └── tests/
+└── frontend/
+    └── src/
+        └── components/
+            ├── Calculator/
+            ├── ProgressBar/
+            ├── CalculatorInput/
+            └── HistoryList/
+```
 
-### Available Endpoints
+## Available Endpoints
+
 - `POST /calculate`: Calculate NPI expression
-  ```json
-  {
-    "expression": "3 4 +"
-  }
-  ```
-- `GET /calculations/csv`: Download all calculations as CSV
+```json
+{
+  "expression": "3 4 +"
+}
+```
+- `GET /calculations`: Get calculation history
+- `GET /calculations/csv`: Download CSV
 
-### Understanding HTTP Status Codes
-For error messages reference: [Mozilla HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+## API Documentation
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+## Testing
+
+### Backend Tests
+```bash
+pytest tests/
+```
+
+### API Testing
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"expression": "3 4 +"}' \
+     'http://localhost:8000/calculate'
+```
 
 ## Resources
 
-### FastAPI
-Learn how to use FastAPI to create a simple REST API:
-- Tutorial: [FastAPI Tutorial](https://www.youtube.com/watch?v=iWS9ogMPOI0)
-
-### SQLite 3
-Learn how to use SQLite 3 to create simple DB:
-- Tutorial: [SQLite Tutorial](https://www.youtube.com/watch?v=girsuXz0yA8)
+- [FastAPI Tutorial](https://www.youtube.com/watch?v=iWS9ogMPOI0)
+- [SQLite Tutorial](https://www.youtube.com/watch?v=girsuXz0yA8)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)

@@ -11,8 +11,11 @@ def test_calculate_endpoint_valid():
         "/calculate",
         json={"expression": "3 4 +"}
     )
+    response_data = response.json()
     assert response.status_code == 200
-    assert response.json() == {"result": 7.0}
+    assert response_data["result"] == 7.0
+    assert "id" in response_data
+    assert isinstance(response_data["id"], int)
 
 def test_calculate_endpoint_invalid():
     response = client.post(
