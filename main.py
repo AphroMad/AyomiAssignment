@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
@@ -12,6 +13,13 @@ from src.db.operations import DatabaseManager, DatabaseError
 app = FastAPI()
 db = DatabaseManager()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # React's default port
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class NPIExpression(BaseModel):
     expression: str
@@ -26,9 +34,9 @@ def calculate_expression(expression: NPIExpression):
             raise HTTPException(status_code=500, detail="Failed to save calculation")
         return {"result": result, "id": row_id}
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=f"Invalid expression: {str(e)}")
     except DatabaseError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
     
     
 @app.get("/calculations/csv")
