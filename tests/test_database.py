@@ -1,5 +1,5 @@
 import pytest
-from src.db.operations import DatabaseManager
+from src.db.operations import DatabaseManager, DatabaseError
 import os
 
 @pytest.fixture
@@ -25,3 +25,8 @@ def test_get_all_calculations(db_manager):
     calculations = db_manager.get_all_calculations()
     assert len(calculations) == 2
     
+def test_database_error(db_manager):
+    with pytest.raises(DatabaseError):
+        # Force error by passing invalid types
+        db_manager.save_calculation(None, None)
+        
