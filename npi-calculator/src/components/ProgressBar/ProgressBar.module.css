@@ -1,0 +1,38 @@
+.progressContainer {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progressInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .progressBar {
+    height: 20px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .progressFill {
+    height: 100%;
+    background-color: #F15A24;
+    transition: width 0.3s ease;
+  }
+  
+  .progressLabel {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .negative {
+    color: #dc2626;
+    margin-left: 0.5rem;
+  }
